@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var animationAmount = 1.0
+    @State private var rotationAmount = 0.0
     
     var body: some View {
         VStack(spacing: 80) {
@@ -34,14 +35,14 @@ struct ContentView: View {
             
             Button("3D Effect") {
                 withAnimation(.spring(duration: 1, bounce: 0.5)) {
-                    animationAmount += 360
+                    rotationAmount += 360
                 }
             }
             .padding(50)
             .background(.blue)
             .foregroundStyle(.white)
             .clipShape(.circle)
-            .rotation3DEffect(.degrees(animationAmount), axis: (x: 1, y: 1, z: 0))
+            .rotation3DEffect(.degrees(rotationAmount), axis: (x: 1, y: 1, z: 0))
         }
     }
 }
