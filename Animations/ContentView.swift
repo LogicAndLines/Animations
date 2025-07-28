@@ -11,25 +11,38 @@ struct ContentView: View {
     @State private var animationAmount = 1.0
     
     var body: some View {
-        Button("Tap Me") {}
+        VStack(spacing: 80) {
+            Button("Circled") {}
+                .padding(50)
+                .background(.red)
+                .foregroundStyle(.white)
+                .clipShape(.circle)
+                .overlay(
+                    Circle()
+                        .stroke(.red)
+                        .scaleEffect(animationAmount)
+                        .opacity(2 - animationAmount)
+                        .animation(
+                            .easeOut(duration: 1)
+                            .repeatForever(autoreverses: false),
+                            value: animationAmount
+                        )
+                )
+                .onAppear {
+                    animationAmount = 2
+                }
+            
+            Button("3D Effect") {
+                withAnimation(.spring(duration: 1, bounce: 0.5)) {
+                    animationAmount += 360
+                }
+            }
             .padding(50)
-            .background(.red)
+            .background(.blue)
             .foregroundStyle(.white)
             .clipShape(.circle)
-            .overlay(
-                Circle()
-                    .stroke(.red)
-                    .scaleEffect(animationAmount)
-                    .opacity(2 - animationAmount)
-                    .animation(
-                        .easeOut(duration: 1)
-                        .repeatForever(autoreverses: false),
-                        value: animationAmount
-                    )
-            )
-            .onAppear {
-                animationAmount = 2
-            }
+            .rotation3DEffect(.degrees(animationAmount), axis: (x: 1, y: 1, z: 0))
+        }
     }
 }
 
